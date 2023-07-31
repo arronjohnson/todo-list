@@ -13,6 +13,10 @@ class TodoList {
     this.#projects = this.#projects.filter((project) => project.getId() !== projectId);
   }
 
+  getProjects() {
+    return this.#projects;
+  }
+
   getProjectById(projectId) {
     return this.#projects.find((project) => project.getId() === projectId);
   }
