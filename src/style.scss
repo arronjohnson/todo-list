@@ -91,7 +91,7 @@ main {
   padding: 32px;
 
   $add-task-color: #28a745;
-  #add-task {
+  #add-task-button {
     @extend %button;
     background-color: $add-task-color;
     color: white;
