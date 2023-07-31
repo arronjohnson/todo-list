@@ -12,6 +12,17 @@ export default class Task {
     this.priority = priority;
   }
 
+  get desc() {
+    return this._desc;
+  }
+
+  set desc(newDesc) {
+    if (newDesc === '') {
+      newDesc = 'No description.';
+    }
+    this._desc = newDesc;
+  }
+
   get dueDate() {
     return this._dueDate;
   }
