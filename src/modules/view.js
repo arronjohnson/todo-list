@@ -11,9 +11,9 @@ export default class View {
   }
 
   static renderProjects() {
-    View.resetContainer('.sidebar');
+    View.resetContainer('.project-container');
 
-    const container = document.querySelector('.sidebar');
+    const container = document.querySelector('.project-container');
     const allBtn = document.createElement('button');
     allBtn.textContent = 'All';
     container.appendChild(allBtn);
@@ -32,10 +32,16 @@ export default class View {
     const h3 = document.createElement('h3');
     h3.textContent = task.title;
 
-    const p = document.createElement('p');
-    p.textContent = `Due ${getRemainingTime(task.dueDate, View.currentDate, { unit: 'day' })}`;
+    const due = document.createElement('p');
+    due.classList = 'due';
+    due.textContent = `Due ${getRemainingTime(task.dueDate, View.currentDate, { unit: 'day' })}`;
+
+    const desc = document.createElement('p');
+    desc.classList = 'desc';
+    desc.textContent = task.desc;
 
     const deleteBtn = document.createElement('button');
+    deleteBtn.classList = 'delete';
     deleteBtn.textContent = 'Delete';
     deleteBtn.addEventListener('click', () => {
       TodoList.getProjectById(article.dataset.projectId).removeTaskById(article.dataset.id);
@@ -43,7 +49,8 @@ export default class View {
     });
 
     article.appendChild(h3);
-    article.appendChild(p);
+    article.appendChild(due);
+    article.appendChild(desc);
     article.appendChild(deleteBtn);
     return article;
   }
