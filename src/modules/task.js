@@ -8,8 +8,16 @@ export default class Task {
   constructor(title, desc, dueDate, priority) {
     this.title = title;
     this.desc = desc;
-    this.dueDate = new Date(dueDate);
+    this.dueDate = dueDate;
     this.priority = priority;
+  }
+
+  get dueDate() {
+    return this._dueDate;
+  }
+
+  set dueDate(dateStr) {
+    this._dueDate = new Date(dateStr);
   }
 
   getId() {
