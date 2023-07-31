@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --accent: #3689fc;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+a {
+  color: #000;
+  text-decoration: none;
+}
+
+footer {
+  text-align: center;
+}
+
+.footer-icons {
+  font-size: 2rem;
+  user-select: none;
+
+  a:hover {
+    color: var(--accent);
+    cursor: pointer;
+  }
+}
+
+.footer-text {
+  margin-top: 8px;
+}
