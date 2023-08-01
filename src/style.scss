@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 $main-color: #e6edf4;
 $sidebar-color: darken($main-color, 10%);
@@ -79,6 +79,11 @@ a {
   flex-direction: column;
 }
 
+%flex-end {
+  display: flex;
+  justify-content: end;
+}
+
 %no-margin {
   margin: 0;
 }
@@ -92,6 +97,33 @@ a {
 
   &::backdrop {
     background-color: transparentize(black, 0.5);
+  }
+}
+
+.form {
+  &__label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  &__input {
+    border: 1px solid #e5e7eb;
+    border-radius: 5px;
+    height: 34px;
+    padding: 6px;
+    width: min(300px, 80vw);
+  }
+
+  &__buttons {
+    @extend %flex-end;
+    gap: 8px;
+  }
+
+  &__button {
+    padding-left: 0;
+    padding-right: 0;
+    width: 10ch;
   }
 }
 
