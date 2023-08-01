@@ -83,6 +83,18 @@ a {
   margin: 0;
 }
 
+.dialog {
+  border-radius: 8px;
+
+  &__heading {
+    @extend %no-margin;
+  }
+
+  &::backdrop {
+    background-color: transparentize(black, 0.5);
+  }
+}
+
 .sidebar {
   @extend %flex-vertical;
   background-color: $sidebar-color;
