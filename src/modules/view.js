@@ -43,18 +43,32 @@ export default class View {
     desc.className = 'task-card__desc';
     desc.textContent = task.desc;
 
+    const buttonsContainer = document.createElement('section');
+    buttonsContainer.className = 'task-card__buttons-container';
+
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'task-card__btn btn btn--red';
-    deleteBtn.textContent = 'Delete';
+    deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
     deleteBtn.addEventListener('click', () => {
       TodoList.getProjectById(article.dataset.projectId).removeTaskById(article.dataset.id);
       View.renderTasks();
     });
 
+    const editBtn = document.createElement('button');
+    editBtn.className = 'task-card__btn btn btn--blue';
+    editBtn.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+    editBtn.addEventListener('click', () => {
+      const dialog = document.getElementById('js-edit-task-dialog');
+      dialog.showModal();
+    });
+
+    buttonsContainer.appendChild(deleteBtn);
+    buttonsContainer.appendChild(editBtn);
+
     article.appendChild(h3);
     article.appendChild(due);
     article.appendChild(desc);
-    article.appendChild(deleteBtn);
+    article.appendChild(buttonsContainer);
     return article;
   }
 
