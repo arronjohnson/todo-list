@@ -10,9 +10,13 @@
   <dialog class="dialog" id="js-add-project-dialog">
     <h2 class="dialog__heading">Add Project</h2>
     <form class="form" method="dialog">
+      <p class="form__field">
+        <label class="form__label" for="project-name">Name:</label>
+        <input class="form__input" type="text" name="project-name" id="project-name" required>
+      </p>
       <section class="form__buttons">
-        <button class="button button--red">Cancel</button>
-        <button class="button button--green">Add</button>
+        <button class="button button--red js-cancel-button" type="button">Cancel</button>
+        <button class="button button--green" id="js-add-project-submit" type="submit">Add</button>
       </section>
     </form>
   </dialog>
