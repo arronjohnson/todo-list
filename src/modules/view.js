@@ -6,7 +6,7 @@ export default class View {
 
   static createProjectItem(project) {
     const button = document.createElement('button');
-    button.className = 'sidebar__btn btn';
+    button.className = 'sidebar__button button';
     button.textContent = project.name;
     return button;
   }
@@ -15,10 +15,10 @@ export default class View {
     View.resetElement('js-projects-container');
 
     const container = document.getElementById('js-projects-container');
-    const allBtn = document.createElement('button');
-    allBtn.className = 'sidebar__btn btn';
-    allBtn.textContent = 'All';
-    container.appendChild(allBtn);
+    const allButton = document.createElement('button');
+    allButton.className = 'sidebar__button button';
+    allButton.textContent = 'All';
+    container.appendChild(allButton);
 
     const projects = TodoList.getProjects();
     projects.forEach((project) => container.appendChild(View.createProjectItem(project)));
@@ -46,24 +46,24 @@ export default class View {
     const buttonsContainer = document.createElement('section');
     buttonsContainer.className = 'task-card__buttons-container';
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.className = 'task-card__btn btn btn--red';
-    deleteBtn.innerHTML = '<i class="fa-solid fa-trash"></i>';
-    deleteBtn.addEventListener('click', () => {
+    const deleteButton = document.createElement('button');
+    deleteButton.className = 'task-card__button button button--red';
+    deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    deleteButton.addEventListener('click', () => {
       TodoList.getProjectById(article.dataset.projectId).removeTaskById(article.dataset.id);
       View.renderTasks();
     });
 
-    const editBtn = document.createElement('button');
-    editBtn.className = 'task-card__btn btn btn--blue';
-    editBtn.innerHTML = '<i class="fa-solid fa-pencil"></i>';
-    editBtn.addEventListener('click', () => {
+    const editButton = document.createElement('button');
+    editButton.className = 'task-card__button button button--blue';
+    editButton.innerHTML = '<i class="fa-solid fa-pencil"></i>';
+    editButton.addEventListener('click', () => {
       const dialog = document.getElementById('js-edit-task-dialog');
       dialog.showModal();
     });
 
-    buttonsContainer.appendChild(deleteBtn);
-    buttonsContainer.appendChild(editBtn);
+    buttonsContainer.appendChild(deleteButton);
+    buttonsContainer.appendChild(editButton);
 
     article.appendChild(h3);
     article.appendChild(due);
@@ -86,11 +86,11 @@ export default class View {
   }
 
   static registerEventHandlers() {
-    const addProjectBtn = document.getElementById('js-add-project-btn');
-    addProjectBtn.addEventListener('click', () => View.addNewProject());
+    const addProjectButton = document.getElementById('js-add-project-button');
+    addProjectButton.addEventListener('click', () => View.addNewProject());
 
-    const addTaskBtn = document.getElementById('js-add-task-btn');
-    addTaskBtn.addEventListener('click', () => View.addNewTask());
+    const addTaskButton = document.getElementById('js-add-task-button');
+    addTaskButton.addEventListener('click', () => View.addNewTask());
   }
 
   static addNewProject() {

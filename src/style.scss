@@ -47,24 +47,24 @@ a {
   }
 }
 
-.btn {
+.button {
   border: none;
   border-radius: 8px;
   padding: 12px 24px;
   transition: 0.2s transform ease-in-out;
 
-  $green-btn-color: #28a745;
+  $green-button-color: #28a745;
   &--green {
-    background-color: $green-btn-color;
+    background-color: $green-button-color;
     color: white;
-    @include button-highlight($green-btn-color);
+    @include button-highlight($green-button-color);
   }
 
-  $red-btn-color: #dc3545;
+  $red-button-color: #dc3545;
   &--red {
-    background-color: $red-btn-color;
+    background-color: $red-button-color;
     color: white;
-    @include button-highlight($red-btn-color);
+    @include button-highlight($red-button-color);
   }
 
   &--blue {
@@ -99,7 +99,7 @@ a {
     @extend %flex-vertical;
   }
 
-  &__btn {
+  &__button {
     background-color: inherit;
     padding: 12px 16px;
     margin: 1px 16px;
@@ -153,7 +153,7 @@ a {
     gap: 8px;
   }
 
-  &__btn {
+  &__button {
     border-radius: 4px;
     font-size: 0.9rem;
     height: 30px;
