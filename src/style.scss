@@ -35,16 +35,6 @@ a {
   text-decoration: none;
 }
 
-%flex-vertical {
-  display: flex;
-  flex-direction: column;
-}
-
-%button {
-  border: none;
-  border-radius: 8px;
-}
-
 @mixin button-highlight($color) {
   &:hover {
     background-color: darken($color, 10%);
@@ -56,23 +46,55 @@ a {
   }
 }
 
+.btn {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+
+  $green-btn-color: #28a745;
+  &--green {
+    background-color: $green-btn-color;
+    color: white;
+    @include button-highlight($green-btn-color);
+  }
+
+  $red-btn-color: #dc3545;
+  &--red {
+    background-color: $red-btn-color;
+    color: white;
+    @include button-highlight($red-btn-color);
+  }
+}
+
+%flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+
+%no-margin {
+  margin: 0;
+}
+
 .sidebar {
   @extend %flex-vertical;
   background-color: $sidebar-color;
   gap: 32px;
   grid-area: sidebar;
 
-  h1 {
+  &__heading {
     align-self: start;
     margin: 16px 0 0 16px;
     text-align: center;
   }
 
-  button {
-    @extend %button;
+  &__projects-container {
+    @extend %flex-vertical;
+  }
+
+  &__btn {
     background-color: inherit;
-    margin: 1px 16px;
     padding: 12px 16px;
+    margin: 1px 16px;
     text-align: left;
 
     &.active {
@@ -83,29 +105,15 @@ a {
   }
 }
 
-.project-container {
-  @extend %flex-vertical;
-}
-
-main {
+.main {
   padding: 32px;
 
-  $add-task-color: #28a745;
-  #add-task-button {
-    @extend %button;
-    background-color: $add-task-color;
-    color: white;
-    padding: 12px 24px;
-
-    @include button-highlight($add-task-color);
+  &__tasks-container {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    margin-top: 24px;
   }
-}
-
-.task-container {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  margin-top: 24px;
 }
 
 .task-card {
@@ -117,22 +125,23 @@ main {
   grid-template-columns: 1fr 1fr;
   padding: 16px;
 
-  h3,
-  p {
-    margin: 0;
+  &__heading,
+  &__due-date,
+  &__desc {
+    @extend %no-margin;
   }
 
-  .due,
-  .delete {
+  &__due-date,
+  &__btn {
     justify-self: end;
   }
 
-  .desc {
+  &__desc {
     color: #909090;
   }
 
   @mixin priority-color($color) {
-    border-left: 8px solid $color;
+    border-left: 8px solid transparentize($color, 0.3);
   }
 
   &[data-priority='1'] {
@@ -144,25 +153,25 @@ main {
   }
 
   &[data-priority='3'] {
-    @include priority-color(var(--accent));
+    @include priority-color($accent-color);
   }
 }
 
-footer {
+.footer {
   margin: auto 16px 0 0;
   text-align: right;
-}
 
-.footer-icons {
-  font-size: 2rem;
-  user-select: none;
+  &__icon-link {
+    font-size: 2rem;
+    user-select: none;
 
-  a:hover {
-    color: var(--accent);
-    cursor: pointer;
+    &:hover {
+      color: var(--accent);
+      cursor: pointer;
+    }
   }
-}
 
-.footer-text {
-  margin-top: 8px;
+  &__copyright {
+    margin-top: 8px;
+  }
 }

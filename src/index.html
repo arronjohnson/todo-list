@@ -7,58 +7,67 @@
   <script src="https://kit.fontawesome.com/185f24df6a.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <dialog id="add-project-dialog">
-    <h2>Add Project</h2>
-    <form method="dialog">
-      <button>Cancel</button>
-      <button>Add</button>
+  <dialog class="dialog" id="js-add-project-dialog">
+    <h2 class="dialog__heading">Add Project</h2>
+    <form class="form" method="dialog">
+      <section class="form__buttons">
+        <button class="btn btn--red">Cancel</button>
+        <button class="btn btn--green">Add</button>
+      </section>
     </form>
   </dialog>
 
-  <dialog id="add-task-dialog">
-    <h2>Add Task</h2>
-    <form method="dialog">
-      <button>Cancel</button>
-      <button>Add</button>
+  <dialog class="dialog" id="js-add-task-dialog">
+    <h2 class="dialog__heading">Add Task</h2>
+    <form class="form" method="dialog">
+      <section class="form__buttons">
+        <button class="btn btn--red">Cancel</button>
+        <button class="btn btn--green">Add</button>
+      </section>
     </form>
   </dialog>
 
-  <dialog id="edit-task-dialog">
-    <h2>Edit Task</h2>
-    <form method="dialog">
-      <button>Cancel</button>
-      <button>Save</button>
+  <dialog class="dialog" id="js-edit-task-dialog">
+    <h2 class="dialog__heading">Edit Task</h2>
+    <form class="form" method="dialog">
+      <section class="form__buttons">
+        <button class="btn btn--red">Cancel</button>
+        <button class="btn btn--green">Save</button>
+      </section>
     </form>
   </dialog>
 
   <aside class="sidebar">
-    <h1>Todo List</h1>
-    <section class="project-container"></section>
-    <button id="add-project-button">Add Project</button>
+    <h1 class="sidebar__heading">Todo List</h1>
+    <section class="sidebar__projects-container" id="js-projects-container"></section>
+    <button class="sidebar__btn btn" id="js-add-project-btn">Add Project</button>
   </aside>
 
-  <main>
-    <button id="add-task-button">Add Task</button>
-    <section class="task-container"></section>
+  <main class="main">
+    <button class="btn btn--green" id="js-add-task-btn">Add Task</button>
+    <section class="main__tasks-container" id="js-tasks-container"></section>
   </main>
 
-  <footer>
-    <div class="footer-icons">
-      <a href="https://github.com/arronjohnson" target="_blank" rel="noopener noreferrer">
+  <footer class="footer">
+    <div class="footer__icons-container">
+      <a class="footer__icon-link" href="https://github.com/arronjohnson" target="_blank"
+        rel="noopener noreferrer">
         <i class="fa-brands fa-github"></i>
       </a>
-      <a href="https://www.linkedin.com/in/arronjohnson-uk/" target="_blank"
-        rel="noopener noreferrer">
+      <a class="footer__icon-link" href="https://www.linkedin.com/in/arronjohnson-uk/"
+        target="_blank" rel="noopener noreferrer">
         <i class="fa-brands fa-linkedin"></i>
       </a>
-      <a href="http://arronjohnson.me/" target="_blank" rel="noopener noreferrer">
+      <a class="footer__icon-link" href="http://arronjohnson.me/" target="_blank"
+        rel="noopener noreferrer">
         <i class="fa-solid fa-earth-europe"></i>
       </a>
-      <a href="http://arronjohnson.me/" target="_blank" rel="noopener noreferrer">
+      <a class="footer__icon-link" href="http://arronjohnson.me/" target="_blank"
+        rel="noopener noreferrer">
         <i class="fa-solid fa-envelope"></i>
       </a>
     </div>
-    <p class="footer-text">Copyright © Arron Johnson 2022</p>
+    <p class="footer__copyright">Copyright © Arron Johnson 2022</p>
   </footer>
 </body>
 </html>
