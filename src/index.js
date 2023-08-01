@@ -34,5 +34,4 @@ TodoList.addProject(projectOne);
 TodoList.addProject(projectTwo);
 
 window.TodoList = TodoList;
-View.renderProjects();
-View.renderTasks();
+View.init();

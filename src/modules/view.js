@@ -2,25 +2,54 @@ import { intlFormatDistance as getRemainingTime } from 'date-fns';
 import Project from './project.js';
 import TodoList from './todo-list.js';
 
+let activeProject = 0;
+
 export default class View {
   static currentDate = new Date();
 
-  static createProjectButton(name) {
+  static init() {
+    View.renderProjects();
+    View.renderTasks();
+    View.registerEventHandlers();
+  }
+
+  static createProjectButton(name, id) {
     const button = document.createElement('button');
     button.className = 'sidebar__button button';
+    button.dataset.projectId = id;
     button.textContent = name;
+    button.addEventListener('click', () => View.setActiveProject(id));
     return button;
+  }
+
+  static resetActiveProject() {
+    const projectButtons = document.querySelectorAll('#js-projects-container .button');
+    projectButtons.forEach((button) => button.classList.remove('sidebar__button--active'));
+  }
+
+  static setActiveProject(projectId) {
+    if (projectId == null) return;
+    View.resetActiveProject();
+    activeProject = projectId;
+
+    const projectButton = document.querySelector(`[data-project-id="${projectId}"]`);
+    projectButton.classList.add('sidebar__button--active');
+    View.renderTasks();
   }
 
   static renderProjects() {
     View.resetElement('js-projects-container');
 
     const container = document.getElementById('js-projects-container');
-    const allButton = View.createProjectButton('All');
+    const allButton = View.createProjectButton('All', 0);
     container.appendChild(allButton);
 
     const projects = TodoList.getProjects();
-    projects.forEach((project) => container.appendChild(View.createProjectButton(project.name)));
+    projects.forEach((project) =>
+      container.appendChild(View.createProjectButton(project.name, project.getId()))
+    );
+
+    View.setActiveProject(activeProject);
   }
 
   static createTaskCard(task) {
@@ -56,10 +85,7 @@ export default class View {
     const editButton = document.createElement('button');
     editButton.className = 'task-card__button button button--blue';
     editButton.innerHTML = '<i class="fa-solid fa-pencil"></i>';
-    editButton.addEventListener('click', () => {
-      const dialog = document.getElementById('js-edit-task-dialog');
-      dialog.showModal();
-    });
+    editButton.addEventListener('click', () => View.openDialog('js-edit-task-dialog'));
 
     buttonsContainer.appendChild(deleteButton);
     buttonsContainer.appendChild(editButton);
@@ -74,9 +100,15 @@ export default class View {
   static renderTasks() {
     View.resetElement('js-tasks-container');
 
+    let tasks;
+    if (activeProject === 0) {
+      tasks = TodoList.getAllTasksSorted();
+    } else {
+      tasks = TodoList.getProjectById(activeProject).getSortedTasks();
+    }
+
     const container = document.getElementById('js-tasks-container');
-    const allTasks = TodoList.getAllTasksSorted();
-    allTasks.forEach((task) => container.appendChild(View.createTaskCard(task)));
+    tasks.forEach((task) => container.appendChild(View.createTaskCard(task)));
   }
 
   static resetElement(elementId) {
@@ -84,7 +116,6 @@ export default class View {
   }
 
   static openDialog(dialogId) {
-    console.log('test');
     document.getElementById(dialogId).showModal();
   }
 
@@ -116,8 +147,10 @@ export default class View {
     const name = document.getElementById('project-name');
     if (name.value === '') return;
 
-    TodoList.addProject(new Project(name.value));
+    const project = new Project(name.value);
+    TodoList.addProject(project);
     View.renderProjects();
+    View.setActiveProject(project.getId());
   }
 
   static addNewTask() {
