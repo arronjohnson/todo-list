@@ -4,10 +4,10 @@ import TodoList from './todo-list.js';
 export default class View {
   static currentDate = new Date();
 
-  static createProjectItem(project) {
+  static createProjectButton(name) {
     const button = document.createElement('button');
     button.className = 'sidebar__button button';
-    button.textContent = project.name;
+    button.textContent = name;
     return button;
   }
 
@@ -15,13 +15,11 @@ export default class View {
     View.resetElement('js-projects-container');
 
     const container = document.getElementById('js-projects-container');
-    const allButton = document.createElement('button');
-    allButton.className = 'sidebar__button button';
-    allButton.textContent = 'All';
+    const allButton = View.createProjectButton('All');
     container.appendChild(allButton);
 
     const projects = TodoList.getProjects();
-    projects.forEach((project) => container.appendChild(View.createProjectItem(project)));
+    projects.forEach((project) => container.appendChild(View.createProjectButton(project.name)));
   }
 
   static createTaskCard(task) {
