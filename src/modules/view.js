@@ -1,4 +1,5 @@
 import { intlFormatDistance as getRemainingTime } from 'date-fns';
+import Project from './project.js';
 import TodoList from './todo-list.js';
 
 export default class View {
@@ -79,21 +80,44 @@ export default class View {
   }
 
   static resetElement(elementId) {
-    const element = document.getElementById(elementId);
-    element.innerHTML = '';
+    document.getElementById(elementId).innerHTML = '';
+  }
+
+  static openDialog(dialogId) {
+    console.log('test');
+    document.getElementById(dialogId).showModal();
+  }
+
+  static closeDialogs() {
+    const dialogs = document.querySelectorAll('.dialog');
+    dialogs.forEach((dialog) => dialog.close());
+  }
+
+  static resetFormFields() {
+    const fields = document.querySelectorAll('.form__input');
+    fields.forEach((field) => (field.value = ''));
   }
 
   static registerEventHandlers() {
     const addProjectButton = document.getElementById('js-add-project-button');
-    addProjectButton.addEventListener('click', () => View.addNewProject());
-
+    const addProjectSubmit = document.getElementById('js-add-project-submit');
     const addTaskButton = document.getElementById('js-add-task-button');
-    addTaskButton.addEventListener('click', () => View.addNewTask());
+    const closeButtons = document.querySelectorAll('.js-cancel-button');
+    const dialogs = document.querySelectorAll('.dialog');
+
+    addProjectButton.addEventListener('click', () => View.openDialog('js-add-project-dialog'));
+    addProjectSubmit.addEventListener('click', () => View.addNewProject());
+    closeButtons.forEach((button) => button.addEventListener('click', () => View.closeDialogs()));
+    dialogs.forEach((dialog) => dialog.addEventListener('close', () => View.resetFormFields()));
+    addTaskButton.addEventListener('click', () => View.openDialog('js-add-task-dialog'));
   }
 
   static addNewProject() {
-    const dialog = document.getElementById('js-add-project-dialog');
-    dialog.showModal();
+    const name = document.getElementById('project-name');
+    if (name.value === '') return;
+
+    TodoList.addProject(new Project(name.value));
+    View.renderProjects();
   }
 
   static addNewTask() {
