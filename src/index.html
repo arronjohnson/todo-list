@@ -7,15 +7,41 @@
   <script src="https://kit.fontawesome.com/185f24df6a.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <dialog id="add-project-dialog">
+    <h2>Add Project</h2>
+    <form method="dialog">
+      <button>Cancel</button>
+      <button>Add</button>
+    </form>
+  </dialog>
+
+  <dialog id="add-task-dialog">
+    <h2>Add Task</h2>
+    <form method="dialog">
+      <button>Cancel</button>
+      <button>Add</button>
+    </form>
+  </dialog>
+
+  <dialog id="edit-task-dialog">
+    <h2>Edit Task</h2>
+    <form method="dialog">
+      <button>Cancel</button>
+      <button>Save</button>
+    </form>
+  </dialog>
+
   <aside class="sidebar">
     <h1>Todo List</h1>
     <section class="project-container"></section>
     <button id="add-project-button">Add Project</button>
   </aside>
+
   <main>
     <button id="add-task-button">Add Task</button>
     <section class="task-container"></section>
   </main>
+
   <footer>
     <div class="footer-icons">
       <a href="https://github.com/arronjohnson" target="_blank" rel="noopener noreferrer">
