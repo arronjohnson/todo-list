@@ -43,6 +43,7 @@ a {
 
   &:active {
     background-color: darken($color, 15%);
+    transform: scale(0.96);
   }
 }
 
@@ -50,6 +51,7 @@ a {
   border: none;
   border-radius: 8px;
   padding: 12px 24px;
+  transition: 0.2s transform ease-in-out;
 
   $green-btn-color: #28a745;
   &--green {
@@ -63,6 +65,12 @@ a {
     background-color: $red-btn-color;
     color: white;
     @include button-highlight($red-btn-color);
+  }
+
+  &--blue {
+    background-color: $accent-color;
+    color: white;
+    @include button-highlight($accent-color);
   }
 }
 
@@ -132,12 +140,25 @@ a {
   }
 
   &__due-date,
-  &__btn {
+  &__buttons-container {
     justify-self: end;
   }
 
   &__desc {
     color: #909090;
+  }
+
+  &__buttons-container {
+    display: flex;
+    gap: 8px;
+  }
+
+  &__btn {
+    border-radius: 4px;
+    font-size: 0.9rem;
+    height: 30px;
+    padding: 6px 8px;
+    width: 30px;
   }
 
   @mixin priority-color($color) {
