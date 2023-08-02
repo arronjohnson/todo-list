@@ -17,6 +17,10 @@ export default class Project {
     return this.#tasks;
   }
 
+  getTaskById(taskId) {
+    return this.#tasks.get(taskId);
+  }
+
   // array conversion necessary to allow sorting
   getTasksAsArray() {
     return [...this.getTasks().values()];
