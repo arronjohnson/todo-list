@@ -1,5 +1,4 @@
 import sortTaskArray from './sort.js';
-import Project from './project.js';
 
 class TodoList {
   #activeProjectId;
@@ -7,11 +6,10 @@ class TodoList {
   // map isn't used as project quantity is likely minimal, so reduced lookup time is negligible
   #projects = [];
 
-  constructor() {
-    const project = new Project('Default');
-    this.#defaultProjectId = project.getId();
-    this.#activeProjectId = this.#defaultProjectId;
-    this.addProject(project);
+  setProjects(projects, activeProjectId, defaultProjectId) {
+    this.#projects = projects;
+    this.#activeProjectId = activeProjectId;
+    this.#defaultProjectId = defaultProjectId;
   }
 
   addProject(project) {
