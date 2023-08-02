@@ -1,4 +1,4 @@
-import { intlFormatDistance as getRemainingTime } from 'date-fns';
+import { intlFormatDistance as getRemainingTime, format as dateToString } from 'date-fns';
 import Task from './task.js';
 import Project from './project.js';
 import TodoList from './todo-list.js';
@@ -100,7 +100,7 @@ export default class View {
     const editButton = document.createElement('button');
     editButton.className = 'task-card__button button button--blue';
     editButton.innerHTML = '<i class="fa-solid fa-pencil"></i>';
-    editButton.addEventListener('click', () => View.openDialog('js-edit-task-dialog'));
+    editButton.addEventListener('click', () => View.editTask(article));
 
     buttonsContainer.appendChild(deleteButton);
     buttonsContainer.appendChild(editButton);
@@ -131,6 +131,13 @@ export default class View {
     return document.getElementById(elementId)?.value;
   }
 
+  static setElementValue(elementId, newValue) {
+    const element = document.getElementById(elementId);
+    if (element) {
+      element.value = newValue;
+    }
+  }
+
   static resetElement(elementId) {
     document.getElementById(elementId).innerHTML = '';
   }
@@ -156,13 +163,15 @@ export default class View {
     const addTaskForm = document.getElementById('js-add-task-form');
     const closeButtons = document.querySelectorAll('.js-cancel-button');
     const dialogs = document.querySelectorAll('.dialog');
+    const editTaskForm = document.getElementById('js-edit-task-form');
 
     addProjectButton.addEventListener('click', () => View.openDialog('js-add-project-dialog'));
     addProjectSubmit.addEventListener('click', () => View.addNewProject());
-    closeButtons.forEach((button) => button.addEventListener('click', () => View.closeDialogs()));
-    dialogs.forEach((dialog) => dialog.addEventListener('close', () => View.resetForms()));
     addTaskButton.addEventListener('click', () => View.openDialog('js-add-task-dialog'));
     addTaskForm.addEventListener('submit', () => View.addNewTask());
+    closeButtons.forEach((button) => button.addEventListener('click', () => View.closeDialogs()));
+    dialogs.forEach((dialog) => dialog.addEventListener('close', () => View.resetForms()));
+    editTaskForm.addEventListener('submit', () => View.saveTask());
   }
 
   static addNewProject() {
@@ -190,5 +199,40 @@ export default class View {
 
     activeProject.addTask(new Task(title, desc, dueDate, priority));
     View.renderTasks();
+  }
+
+  static editTask(article) {
+    const project = TodoList.getProjectById(article.dataset.projectId);
+    const task = project.getTaskById(article.dataset.id);
+
+    View.setElementValue('edit-task-title', task.title);
+    View.setElementValue('edit-task-desc', View.getDescStr(task.desc));
+    View.setElementValue('edit-task-due', dateToString(task.dueDate, 'yyyy-MM-dd'));
+    View.setElementValue('edit-task-priority', task.priority);
+    View.setElementValue('edit-task-project-id', article.dataset.projectId);
+    View.setElementValue('edit-task-id', article.dataset.id);
+
+    View.openDialog('js-edit-task-dialog');
+  }
+
+  static saveTask() {
+    const title = View.getElementValue('edit-task-title');
+    const desc = View.getElementValue('edit-task-desc');
+    const dueDate = View.getElementValue('edit-task-due');
+    const priority = View.getElementValue('edit-task-priority');
+    const projectId = View.getElementValue('edit-task-project-id');
+    const taskId = View.getElementValue('edit-task-id');
+    const task = TodoList.getProjectById(projectId).getTaskById(taskId);
+    task.setValues(title, desc, dueDate, priority);
+    View.renderTasks();
+  }
+
+  // don't populate the description field if a description was not previously set
+  // otherwise this is confusing to the user
+  static getDescStr(desc) {
+    if (desc === 'No description.') {
+      return '';
+    }
+    return desc;
   }
 }
