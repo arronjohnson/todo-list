@@ -68,9 +68,23 @@ export default class View {
     due.className = 'task-card__due-date';
     due.textContent = `Due ${getRemainingTime(task.dueDate, View.currentDate, { unit: 'day' })}`;
 
+    const textContainer = document.createElement('section');
+    textContainer.className = 'task-card__text-container';
+
+    const projectName = document.createElement('p');
+    projectName.className = 'task-card__project-name task-card__project-name--hidden';
+    // we don't need to display the project name if we're not in the 'All' view
+    if (TodoList.getActiveProjectId() === 0) {
+      projectName.classList.toggle('task-card__project-name--hidden');
+      projectName.textContent = TodoList.getProjectById(task.getProjectId()).name;
+    }
+
     const desc = document.createElement('p');
     desc.className = 'task-card__desc';
     desc.textContent = task.desc;
+
+    textContainer.appendChild(projectName);
+    textContainer.appendChild(desc);
 
     const buttonsContainer = document.createElement('section');
     buttonsContainer.className = 'task-card__buttons-container';
@@ -93,7 +107,7 @@ export default class View {
 
     article.appendChild(h3);
     article.appendChild(due);
-    article.appendChild(desc);
+    article.appendChild(textContainer);
     article.appendChild(buttonsContainer);
     return article;
   }

@@ -190,6 +190,7 @@ a {
 
   &__heading,
   &__due-date,
+  &__project-name,
   &__desc {
     @extend %no-margin;
   }
@@ -199,8 +200,24 @@ a {
     justify-self: end;
   }
 
-  &__desc {
+  &__text-container {
     align-self: end;
+  }
+
+  &__project-name {
+    margin: 16px 0 8px;
+
+    &--hidden {
+      display: none;
+    }
+
+    &::before {
+      content: 'Project: ';
+      font-weight: bold;
+    }
+  }
+
+  &__desc {
     color: #909090;
     font-size: 0.9rem;
   }
