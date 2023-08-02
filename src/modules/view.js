@@ -158,7 +158,7 @@ export default class View {
 
   static registerEventHandlers() {
     const addProjectButton = document.getElementById('js-add-project-button');
-    const addProjectSubmit = document.getElementById('js-add-project-submit');
+    const addProjectForm = document.getElementById('js-add-project-form');
     const addTaskButton = document.getElementById('js-add-task-button');
     const addTaskForm = document.getElementById('js-add-task-form');
     const closeButtons = document.querySelectorAll('.js-cancel-button');
@@ -166,7 +166,7 @@ export default class View {
     const editTaskForm = document.getElementById('js-edit-task-form');
 
     addProjectButton.addEventListener('click', () => View.openDialog('js-add-project-dialog'));
-    addProjectSubmit.addEventListener('click', () => View.addNewProject());
+    addProjectForm.addEventListener('submit', () => View.addNewProject());
     addTaskButton.addEventListener('click', () => View.openDialog('js-add-task-dialog'));
     addTaskForm.addEventListener('submit', () => View.addNewTask());
     closeButtons.forEach((button) => button.addEventListener('click', () => View.closeDialogs()));
@@ -176,9 +176,8 @@ export default class View {
 
   static addNewProject() {
     const name = View.getElementValue('project-name');
-    if (name === '') return;
-
     const project = new Project(name);
+
     TodoList.addProject(project);
     TodoList.setActiveProjectId(project.getId());
     View.renderProjects();
