@@ -43,6 +43,10 @@ class TodoList {
     return this.#projects.find((project) => project.getId() === projectId);
   }
 
+  getActiveProject() {
+    return this.getProjectById(this.getActiveProjectId());
+  }
+
   // this enables an 'All' view, which displays all tasks from every project on a single page
   getAllTasks() {
     return this.#projects.reduce((tasks, project) => tasks.concat(project.getTasksAsArray()), []);
