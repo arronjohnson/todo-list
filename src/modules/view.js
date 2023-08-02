@@ -58,12 +58,21 @@ export default class View {
     projectButtons.forEach((button) => button.classList.remove('sidebar__button--active'));
   }
 
+  static setProjectText(projectId) {
+    const projectName =
+      Number(projectId) === View.ALL_PROJECT_ID ? 'All' : TodoList.getProjectById(projectId).name;
+    const heading = document.getElementById('js-project-heading');
+    heading.innerText = `Viewing ${projectName}`;
+  }
+
   static displayActiveProject() {
     View.resetActiveProject();
 
     const projectId = Storage.getActiveProjectId();
     const projectButton = document.querySelector(`[data-project-id="${projectId}"]`);
     projectButton.classList.add('sidebar__button--active');
+
+    View.setProjectText(projectId);
     View.renderTasks();
     Storage.save();
   }

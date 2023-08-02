@@ -79,6 +79,10 @@ a {
   }
 }
 
+.menu-button {
+  margin-right: 6px;
+}
+
 @mixin flex-vertical() {
   display: flex;
   flex-direction: column;
@@ -205,6 +209,12 @@ a {
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     margin-top: 24px;
   }
+
+  &__project-heading {
+    &--hidden {
+      display: none;
+    }
+  }
 }
 
 .task-card {
@@ -328,6 +338,12 @@ a {
 
   .main {
     padding: 16px;
+
+    &__project-heading {
+      &--hidden {
+        display: block;
+      }
+    }
 
     &__tasks-container {
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
