@@ -6,8 +6,8 @@ import Task from './modules/task.js';
 import View from './modules/view.js';
 
 // TESTING CODE
-const projectOne = new Project('Default');
-const projectOneTasks = [
+const defaultProject = TodoList.getProjectById(TodoList.getDefaultProjectId());
+const defaultProjectTasks = [
   new Task('Default #1', '', '2024/01/01', 1, ''),
   new Task('Default #2', '', '2024/05/01', 3, ''),
   new Task('Default #3', '', '2024/01/27', 1, ''),
@@ -15,8 +15,8 @@ const projectOneTasks = [
   new Task('Default #5', '', '2023/12/01', 2, ''),
 ];
 
-for (const todo of projectOneTasks) {
-  projectOne.addTask(todo);
+for (const todo of defaultProjectTasks) {
+  defaultProject.addTask(todo);
 }
 
 const projectTwo = new Project('Testing');
@@ -30,7 +30,6 @@ for (const todo of projectTwoTasks) {
   projectTwo.addTask(todo);
 }
 
-TodoList.addProject(projectOne);
 TodoList.addProject(projectTwo);
 
 window.TodoList = TodoList;

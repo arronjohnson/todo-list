@@ -2,8 +2,6 @@ import { intlFormatDistance as getRemainingTime } from 'date-fns';
 import Project from './project.js';
 import TodoList from './todo-list.js';
 
-let activeProject = 0;
-
 export default class View {
   static currentDate = new Date();
 
@@ -18,7 +16,10 @@ export default class View {
     button.className = 'sidebar__button button';
     button.dataset.projectId = id;
     button.textContent = name;
-    button.addEventListener('click', () => View.setActiveProject(id));
+    button.addEventListener('click', () => {
+      TodoList.setActiveProjectId(id);
+      View.displayActiveProject();
+    });
     return button;
   }
 
@@ -27,11 +28,10 @@ export default class View {
     projectButtons.forEach((button) => button.classList.remove('sidebar__button--active'));
   }
 
-  static setActiveProject(projectId) {
-    if (projectId == null) return;
+  static displayActiveProject() {
     View.resetActiveProject();
-    activeProject = projectId;
 
+    const projectId = TodoList.getActiveProjectId();
     const projectButton = document.querySelector(`[data-project-id="${projectId}"]`);
     projectButton.classList.add('sidebar__button--active');
     View.renderTasks();
@@ -49,7 +49,7 @@ export default class View {
       container.appendChild(View.createProjectButton(project.name, project.getId()))
     );
 
-    View.setActiveProject(activeProject);
+    View.displayActiveProject();
   }
 
   static createTaskCard(task) {
@@ -100,11 +100,12 @@ export default class View {
   static renderTasks() {
     View.resetElement('js-tasks-container');
 
+    const activeProjectId = TodoList.getActiveProjectId();
     let tasks;
-    if (activeProject === 0) {
+    if (activeProjectId === 0) {
       tasks = TodoList.getAllTasksSorted();
     } else {
-      tasks = TodoList.getProjectById(activeProject).getSortedTasks();
+      tasks = TodoList.getProjectById(activeProjectId).getSortedTasks();
     }
 
     const container = document.getElementById('js-tasks-container');
@@ -149,8 +150,8 @@ export default class View {
 
     const project = new Project(name.value);
     TodoList.addProject(project);
+    TodoList.setActiveProjectId(project.getId());
     View.renderProjects();
-    View.setActiveProject(project.getId());
   }
 
   static addNewTask() {
