@@ -1,4 +1,5 @@
 import { intlFormatDistance as getRemainingTime } from 'date-fns';
+import Task from './task.js';
 import Project from './project.js';
 import TodoList from './todo-list.js';
 
@@ -138,6 +139,7 @@ export default class View {
     const addProjectButton = document.getElementById('js-add-project-button');
     const addProjectSubmit = document.getElementById('js-add-project-submit');
     const addTaskButton = document.getElementById('js-add-task-button');
+    const addTaskForm = document.getElementById('js-add-task-form');
     const closeButtons = document.querySelectorAll('.js-cancel-button');
     const dialogs = document.querySelectorAll('.dialog');
 
@@ -146,6 +148,7 @@ export default class View {
     closeButtons.forEach((button) => button.addEventListener('click', () => View.closeDialogs()));
     dialogs.forEach((dialog) => dialog.addEventListener('close', () => View.resetForms()));
     addTaskButton.addEventListener('click', () => View.openDialog('js-add-task-dialog'));
+    addTaskForm.addEventListener('submit', () => View.addNewTask());
   }
 
   static addNewProject() {
@@ -159,7 +162,19 @@ export default class View {
   }
 
   static addNewTask() {
-    const dialog = document.getElementById('js-add-task-dialog');
-    dialog.showModal();
+    const title = View.getElementValue('task-title');
+    const desc = View.getElementValue('task-desc');
+    const dueDate = View.getElementValue('task-due');
+    const priority = View.getElementValue('task-priority');
+
+    // special handling for the 'All' pseudo-project
+    // new tasks should be added to the Default project instead
+    let activeProject = TodoList.getActiveProject();
+    if (TodoList.getActiveProjectId() === 0) {
+      activeProject = TodoList.getDefaultProject();
+    }
+
+    activeProject.addTask(new Task(title, desc, dueDate, priority));
+    View.renderTasks();
   }
 }
