@@ -150,9 +150,9 @@ export default class View {
 
   static addNewProject() {
     const name = View.getElementValue('project-name');
-    if (name.value === '') return;
+    if (name === '') return;
 
-    const project = new Project(name.value);
+    const project = new Project(name);
     TodoList.addProject(project);
     TodoList.setActiveProjectId(project.getId());
     View.renderProjects();
