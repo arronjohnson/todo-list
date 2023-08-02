@@ -1,6 +1,7 @@
 import { intlFormatDistance as getRemainingTime, format as dateToString } from 'date-fns';
-import Task from './task.js';
 import Project from './project.js';
+import Storage from './storage.js';
+import Task from './task.js';
 import TodoList from './todo-list.js';
 
 export default class View {
@@ -36,6 +37,7 @@ export default class View {
     const projectButton = document.querySelector(`[data-project-id="${projectId}"]`);
     projectButton.classList.add('sidebar__button--active');
     View.renderTasks();
+    Storage.save();
   }
 
   static renderProjects() {
@@ -181,6 +183,7 @@ export default class View {
     TodoList.addProject(project);
     TodoList.setActiveProjectId(project.getId());
     View.renderProjects();
+    Storage.save();
   }
 
   static addNewTask() {
@@ -198,6 +201,7 @@ export default class View {
 
     activeProject.addTask(new Task(title, desc, dueDate, priority));
     View.renderTasks();
+    Storage.save();
   }
 
   static editTask(article) {
@@ -224,6 +228,7 @@ export default class View {
     const task = TodoList.getProjectById(projectId).getTaskById(taskId);
     task.setValues(title, desc, dueDate, priority);
     View.renderTasks();
+    Storage.save();
   }
 
   // don't populate the description field if a description was not previously set
