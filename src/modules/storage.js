@@ -38,7 +38,7 @@ export default class Storage {
       newProjects.push(new Project(project.name, project.id));
     });
 
-    const activeProjectId = Number(localStorage.getItem('activeProjectId'));
+    const activeProjectId = localStorage.getItem('activeProjectId');
     const defaultProjectId = localStorage.getItem('defaultProjectId');
     TodoList.setProjects(newProjects, activeProjectId, defaultProjectId);
 

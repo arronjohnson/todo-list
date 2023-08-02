@@ -7,6 +7,8 @@ import TodoList from './todo-list.js';
 export default class View {
   static currentDate = new Date();
 
+  static ALL_PROJECT_ID = 0;
+
   static init() {
     View.renderProjects();
     View.renderTasks();
@@ -76,7 +78,7 @@ export default class View {
     const projectName = document.createElement('p');
     projectName.className = 'task-card__project-name task-card__project-name--hidden';
     // we don't need to display the project name if we're not in the 'All' view
-    if (TodoList.getActiveProjectId() === 0) {
+    if (Number(TodoList.getActiveProjectId()) === View.ALL_PROJECT_ID) {
       projectName.classList.toggle('task-card__project-name--hidden');
       projectName.textContent = TodoList.getProjectById(task.getProjectId()).name;
     }
@@ -119,7 +121,7 @@ export default class View {
 
     const activeProjectId = TodoList.getActiveProjectId();
     let tasks;
-    if (activeProjectId === 0) {
+    if (Number(activeProjectId) === View.ALL_PROJECT_ID) {
       tasks = TodoList.getAllTasksSorted();
     } else {
       tasks = TodoList.getProjectById(activeProjectId).getSortedTasks();
