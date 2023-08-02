@@ -43,6 +43,10 @@ class TodoList {
     return this.#projects.find((project) => project.getId() === projectId);
   }
 
+  getDefaultProject() {
+    return this.getProjectById(this.getDefaultProjectId());
+  }
+
   getActiveProject() {
     return this.getProjectById(this.getActiveProjectId());
   }
