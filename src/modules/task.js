@@ -6,6 +6,10 @@ export default class Task {
   #projectName;
 
   constructor(title, desc, dueDate, priority) {
+    this.setValues(title, desc, dueDate, priority);
+  }
+
+  setValues(title, desc, dueDate, priority) {
     this.title = title;
     this.desc = desc;
     this.dueDate = dueDate;
