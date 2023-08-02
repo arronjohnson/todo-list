@@ -107,12 +107,22 @@ a {
     margin-bottom: 4px;
   }
 
-  &__input {
+  %input-style {
     border: 1px solid #e5e7eb;
     border-radius: 5px;
-    height: 34px;
     padding: 6px;
     width: min(300px, 80vw);
+  }
+
+  &__input,
+  &__select {
+    @extend %input-style;
+    height: 34px;
+  }
+
+  &__textarea {
+    @extend %input-style;
+    resize: none;
   }
 
   &__buttons {
