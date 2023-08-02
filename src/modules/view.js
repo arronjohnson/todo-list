@@ -15,15 +15,41 @@ export default class View {
     View.registerEventHandlers();
   }
 
+  static checkIfProjectDeletable(id) {
+    return Number(id) !== View.ALL_PROJECT_ID && id !== TodoList.getDefaultProjectId();
+  }
+
+  static handleProjectButtonClick(event, id) {
+    // user clicked on delete icon
+    if (event.target.classList.contains('sidebar__button-icon')) {
+      // make sure we set a new active project before deleting the current one, otherwise
+      // we'll run into errors
+      if (TodoList.getActiveProjectId() === id) {
+        TodoList.setActiveProjectId(TodoList.getDefaultProjectId());
+      }
+      TodoList.removeProjectById(id);
+      View.renderProjects();
+    } else {
+      TodoList.setActiveProjectId(id);
+      View.displayActiveProject();
+    }
+  }
+
+  static createProjectDeleteIcon(button, id) {
+    if (!View.checkIfProjectDeletable(id)) return;
+
+    const deleteIcon = document.createElement('i');
+    deleteIcon.className = 'sidebar__button-icon fa-solid fa-xmark';
+    button.appendChild(deleteIcon);
+  }
+
   static createProjectButton(name, id) {
     const button = document.createElement('button');
     button.className = 'sidebar__button button';
     button.dataset.projectId = id;
     button.textContent = name;
-    button.addEventListener('click', () => {
-      TodoList.setActiveProjectId(id);
-      View.displayActiveProject();
-    });
+    button.addEventListener('click', (e) => View.handleProjectButtonClick(e, id));
+    View.createProjectDeleteIcon(button, id);
     return button;
   }
 
