@@ -112,6 +112,10 @@ export default class View {
     tasks.forEach((task) => container.appendChild(View.createTaskCard(task)));
   }
 
+  static getElementValue(elementId) {
+    return document.getElementById(elementId)?.value;
+  }
+
   static resetElement(elementId) {
     document.getElementById(elementId).innerHTML = '';
   }
@@ -145,7 +149,7 @@ export default class View {
   }
 
   static addNewProject() {
-    const name = document.getElementById('project-name');
+    const name = View.getElementValue('project-name');
     if (name.value === '') return;
 
     const project = new Project(name.value);
