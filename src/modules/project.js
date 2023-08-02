@@ -2,11 +2,12 @@ import generateId from 'uniqid';
 import sortTaskArray from './sort.js';
 
 export default class Project {
-  #id = generateId();
+  #id;
   #tasks = new Map();
 
-  constructor(name) {
+  constructor(name, id = generateId()) {
     this.name = name;
+    this.#id = id;
   }
 
   getId() {
@@ -39,5 +40,12 @@ export default class Project {
   // id is used here as this is tied to each delete button using data attributes
   removeTaskById(taskId) {
     this.#tasks.delete(taskId);
+  }
+
+  toJSON() {
+    return {
+      id: this.#id,
+      name: this.name,
+    };
   }
 }

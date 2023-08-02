@@ -1,4 +1,5 @@
 import generateId from 'uniqid';
+import { format as dateToString } from 'date-fns';
 
 export default class Task {
   #id = generateId();
@@ -53,5 +54,16 @@ export default class Task {
 
   getProjectName() {
     return this.#projectName;
+  }
+
+  toJSON() {
+    return {
+      projectId: this.#projectId,
+      projectName: this.#projectName,
+      title: this.title,
+      desc: this.desc === Task.DEFAULT_DESCRIPTION ? '' : this.desc,
+      dueDate: dateToString(this.dueDate, 'yyyy-MM-dd'),
+      priority: this.priority,
+    };
   }
 }
