@@ -241,7 +241,7 @@ export default class View {
     // special handling for the 'All' pseudo-project
     // new tasks should be added to the Default project instead
     let activeProject = TodoList.getActiveProject();
-    if (Storage.getActiveProjectId() === 0) {
+    if (Number(Storage.getActiveProjectId()) === View.ALL_PROJECT_ID) {
       activeProject = TodoList.getDefaultProject();
     }
 
