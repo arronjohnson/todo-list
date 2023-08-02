@@ -154,7 +154,10 @@ a {
   }
 
   &__button {
+    align-items: center;
     background-color: inherit;
+    display: flex;
+    justify-content: space-between;
     padding: 12px 16px;
     margin: 1px 16px;
     text-align: left;
@@ -163,7 +166,16 @@ a {
       background-color: $sidebar-color-active;
       font-weight: bold;
     }
+
+    &:hover &-icon {
+      visibility: visible;
+    }
     @include button-highlight($sidebar-color);
+  }
+
+  &__button-icon {
+    font-size: 1.1rem;
+    visibility: hidden;
   }
 }
 
