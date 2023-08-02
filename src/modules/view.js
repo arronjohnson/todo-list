@@ -16,7 +16,7 @@ export default class View {
   }
 
   static checkIfProjectDeletable(id) {
-    return Number(id) !== View.ALL_PROJECT_ID && id !== TodoList.getDefaultProjectId();
+    return Number(id) !== View.ALL_PROJECT_ID && id !== Storage.getDefaultProjectId();
   }
 
   static handleProjectButtonClick(event, id) {
@@ -24,13 +24,13 @@ export default class View {
     if (event.target.classList.contains('sidebar__button-icon')) {
       // make sure we set a new active project before deleting the current one, otherwise
       // we'll run into errors
-      if (TodoList.getActiveProjectId() === id) {
-        TodoList.setActiveProjectId(TodoList.getDefaultProjectId());
+      if (Storage.getActiveProjectId() === id) {
+        Storage.setActiveProjectId(Storage.getDefaultProjectId());
       }
       TodoList.removeProjectById(id);
       View.renderProjects();
     } else {
-      TodoList.setActiveProjectId(id);
+      Storage.setActiveProjectId(id);
       View.displayActiveProject();
     }
   }
@@ -61,7 +61,7 @@ export default class View {
   static displayActiveProject() {
     View.resetActiveProject();
 
-    const projectId = TodoList.getActiveProjectId();
+    const projectId = Storage.getActiveProjectId();
     const projectButton = document.querySelector(`[data-project-id="${projectId}"]`);
     projectButton.classList.add('sidebar__button--active');
     View.renderTasks();
@@ -104,7 +104,7 @@ export default class View {
     const projectName = document.createElement('p');
     projectName.className = 'task-card__project-name task-card__project-name--hidden';
     // we don't need to display the project name if we're not in the 'All' view
-    if (Number(TodoList.getActiveProjectId()) === View.ALL_PROJECT_ID) {
+    if (Number(Storage.getActiveProjectId()) === View.ALL_PROJECT_ID) {
       projectName.classList.toggle('task-card__project-name--hidden');
       projectName.textContent = TodoList.getProjectById(task.getProjectId()).name;
     }
@@ -145,7 +145,7 @@ export default class View {
   static renderTasks() {
     View.resetElement('js-tasks-container');
 
-    const activeProjectId = TodoList.getActiveProjectId();
+    const activeProjectId = Storage.getActiveProjectId();
     let tasks;
     if (Number(activeProjectId) === View.ALL_PROJECT_ID) {
       tasks = TodoList.getAllTasksSorted();
@@ -209,7 +209,7 @@ export default class View {
     const project = new Project(name);
 
     TodoList.addProject(project);
-    TodoList.setActiveProjectId(project.getId());
+    Storage.setActiveProjectId(project.getId());
     View.renderProjects();
     Storage.save();
   }
@@ -223,7 +223,7 @@ export default class View {
     // special handling for the 'All' pseudo-project
     // new tasks should be added to the Default project instead
     let activeProject = TodoList.getActiveProject();
-    if (TodoList.getActiveProjectId() === 0) {
+    if (Storage.getActiveProjectId() === 0) {
       activeProject = TodoList.getDefaultProject();
     }
 

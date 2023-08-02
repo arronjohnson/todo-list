@@ -1,31 +1,16 @@
 import sortTaskArray from './sort.js';
+import Storage from './storage.js';
 
 class TodoList {
-  #activeProjectId;
-  #defaultProjectId;
   // map isn't used as project quantity is likely minimal, so reduced lookup time is negligible
   #projects = [];
 
-  setProjects(projects, activeProjectId, defaultProjectId) {
-    this.#projects = projects;
-    this.#activeProjectId = activeProjectId;
-    this.#defaultProjectId = defaultProjectId;
+  setProjects(projectsArray) {
+    this.#projects = projectsArray;
   }
 
   addProject(project) {
     this.#projects.push(project);
-  }
-
-  getDefaultProjectId() {
-    return this.#defaultProjectId;
-  }
-
-  getActiveProjectId() {
-    return this.#activeProjectId;
-  }
-
-  setActiveProjectId(projectId) {
-    this.#activeProjectId = projectId;
   }
 
   // ids are used to allow easier DOM manipulation
@@ -42,11 +27,11 @@ class TodoList {
   }
 
   getDefaultProject() {
-    return this.getProjectById(this.getDefaultProjectId());
+    return this.getProjectById(Storage.getDefaultProjectId());
   }
 
   getActiveProject() {
-    return this.getProjectById(this.getActiveProjectId());
+    return this.getProjectById(Storage.getActiveProjectId());
   }
 
   // this enables an 'All' view, which displays all tasks from every project on a single page

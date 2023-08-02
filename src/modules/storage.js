@@ -4,28 +4,37 @@ import TodoList from './todo-list.js';
 import View from './view.js';
 
 export default class Storage {
+  static KEY_NAMES = ['projects', 'tasks', 'activeProjectId', 'defaultProjectId'];
+
   static init() {
     // a default project is mandatory
     const defaultProject = new Project('Default');
     // add an example task to the default project for demonstration purposes
     defaultProject.addTask(new Task('Example', '', '2023-12-31', 2));
-    TodoList.setProjects([defaultProject], defaultProject.getId(), defaultProject.getId());
+    TodoList.setProjects([defaultProject]);
+    Storage.setActiveProjectId(defaultProject.getId());
+    Storage.setDefaultProjectId(defaultProject.getId());
     Storage.save();
     View.init();
   }
 
   static save() {
-    const projects = TodoList.getProjects();
-    const tasks = TodoList.getAllTasks();
-    localStorage.setItem('activeProjectId', TodoList.getActiveProjectId());
-    localStorage.setItem('defaultProjectId', TodoList.getDefaultProjectId());
-    localStorage.setItem('projects', JSON.stringify(projects));
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('projects', JSON.stringify(TodoList.getProjects()));
+    localStorage.setItem('tasks', JSON.stringify(TodoList.getAllTasks()));
+  }
+
+  static checkStorageProperties() {
+    for (const key of Storage.KEY_NAMES) {
+      if (!localStorage.hasOwnProperty(key)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   static load() {
     // check if the user has a todo list saved, otherwise we won't have anything to show
-    if (localStorage.getItem('projects') === null) {
+    if (!Storage.checkStorageProperties()) {
       Storage.init();
       return;
     }
@@ -48,7 +57,22 @@ export default class Storage {
       TodoList.getProjectById(task.projectId).addTask(newTask);
     });
 
-    console.log(TodoList);
     View.init();
+  }
+
+  static getActiveProjectId() {
+    return localStorage.getItem('activeProjectId');
+  }
+
+  static setActiveProjectId(projectId) {
+    localStorage.setItem('activeProjectId', projectId);
+  }
+
+  static getDefaultProjectId() {
+    return localStorage.getItem('defaultProjectId');
+  }
+
+  static setDefaultProjectId(projectId) {
+    localStorage.setItem('defaultProjectId', projectId);
   }
 }
