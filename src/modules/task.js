@@ -5,6 +5,8 @@ export default class Task {
   #projectId;
   #projectName;
 
+  static DEFAULT_DESCRIPTION = 'No description.';
+
   constructor(title, desc, dueDate, priority) {
     this.setValues(title, desc, dueDate, priority);
   }
@@ -22,7 +24,7 @@ export default class Task {
 
   set desc(newDesc) {
     if (newDesc === '') {
-      newDesc = 'No description.';
+      newDesc = Task.DEFAULT_DESCRIPTION;
     }
     this._desc = newDesc;
   }

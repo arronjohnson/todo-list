@@ -230,7 +230,7 @@ export default class View {
   // don't populate the description field if a description was not previously set
   // otherwise this is confusing to the user
   static getDescStr(desc) {
-    if (desc === 'No description.') {
+    if (desc === Task.DEFAULT_DESCRIPTION) {
       return '';
     }
     return desc;
