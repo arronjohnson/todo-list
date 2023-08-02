@@ -26,9 +26,31 @@
   <dialog class="dialog" id="js-add-task-dialog">
     <h2 class="dialog__heading">Add Task</h2>
     <form class="form" method="dialog">
+      <p class="form__field">
+        <label class="form__label" for="task-title">Title:</label>
+        <input class="form__input" type="text" name="task-title" id="task-title" required>
+      </p>
+      <p class="form__field">
+        <label class="form__label" for="task-desc">Description:</label>
+        <input class="form__input" type="text" name="task-desc" id="task-desc">
+      </p>
+      <p class="form__field">
+        <label class="form__label" for="task-due">Due date:</label>
+        <input class="form__input" type="date" name="task-due" id="task-due" required>
+      </p>
+      <p class="form__field">
+        <label class="form__label" for="task-priority">Priority:</label>
+        <select class="form__select" name="task-priority" id="task-priority">
+          <option value="1">High</option>
+          <option value="2" selected>Normal</option>
+          <option value="3">Low</option>
+        </select>
+      </p>
       <section class="form__buttons">
-        <button class="button button--red">Cancel</button>
-        <button class="button button--green">Add</button>
+        <button class="form__button button button--red js-cancel-button"
+          type="button">Cancel</button>
+        <button class="form__button button button--green" id="js-add-task-submit"
+          type="submit">Add</button>
       </section>
     </form>
   </dialog>
