@@ -186,6 +186,11 @@ export default class View {
     forms.forEach((form) => form.reset());
   }
 
+  static toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('sidebar--expanded');
+  }
+
   static registerEventHandlers() {
     const addProjectButton = document.getElementById('js-add-project-button');
     const addProjectForm = document.getElementById('js-add-project-form');
@@ -194,6 +199,8 @@ export default class View {
     const closeButtons = document.querySelectorAll('.js-cancel-button');
     const dialogs = document.querySelectorAll('.dialog');
     const editTaskForm = document.getElementById('js-edit-task-form');
+    const menuButton = document.getElementById('js-menu-button');
+    const sidebarCloseButton = document.getElementById('js-sidebar-close-button');
 
     addProjectButton.addEventListener('click', () => View.openDialog('js-add-project-dialog'));
     addProjectForm.addEventListener('submit', () => View.addNewProject());
@@ -202,6 +209,8 @@ export default class View {
     closeButtons.forEach((button) => button.addEventListener('click', () => View.closeDialogs()));
     dialogs.forEach((dialog) => dialog.addEventListener('close', () => View.resetForms()));
     editTaskForm.addEventListener('submit', () => View.saveTask());
+    menuButton.addEventListener('click', () => View.toggleSidebar());
+    sidebarCloseButton.addEventListener('click', () => View.toggleSidebar());
   }
 
   static addNewProject() {

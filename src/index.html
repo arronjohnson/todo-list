@@ -103,12 +103,18 @@
   </dialog>
 
   <aside class="sidebar">
-    <h1 class="sidebar__heading">Todo List</h1>
+    <section class="sidebar__heading-container">
+      <h1 class="sidebar__heading">Todo List</h1>
+      <button class="sidebar__button button sidebar__button--close" id="js-sidebar-close-button">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </section>
     <section class="sidebar__projects-container" id="js-projects-container"></section>
     <button class="sidebar__button button" id="js-add-project-button">Add Project</button>
   </aside>
 
   <main class="main">
+    <button class="button button--blue button--hidden" id="js-menu-button">Menu</button>
     <button class="button button--green" id="js-add-task-button">Add Task</button>
     <section class="main__tasks-container" id="js-tasks-container"></section>
   </main>
