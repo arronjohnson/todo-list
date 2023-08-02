@@ -1,11 +1,33 @@
 import sortTaskArray from './sort.js';
+import Project from './project.js';
 
 class TodoList {
+  #activeProjectId;
+  #defaultProjectId;
   // map isn't used as project quantity is likely minimal, so reduced lookup time is negligible
   #projects = [];
 
+  constructor() {
+    const project = new Project('Default');
+    this.#defaultProjectId = project.getId();
+    this.#activeProjectId = this.#defaultProjectId;
+    this.addProject(project);
+  }
+
   addProject(project) {
     this.#projects.push(project);
+  }
+
+  getDefaultProjectId() {
+    return this.#defaultProjectId;
+  }
+
+  getActiveProjectId() {
+    return this.#activeProjectId;
+  }
+
+  setActiveProjectId(projectId) {
+    this.#activeProjectId = projectId;
   }
 
   // ids are used to allow easier DOM manipulation
