@@ -176,6 +176,7 @@ a {
   gap: 8px;
   grid-template-columns: 1fr 1fr;
   padding: 16px;
+  word-break: break-all;
 
   &__heading,
   &__due-date,
@@ -189,10 +190,12 @@ a {
   }
 
   &__desc {
+    align-self: end;
     color: #909090;
   }
 
   &__buttons-container {
+    align-self: end;
     display: flex;
     gap: 8px;
   }
