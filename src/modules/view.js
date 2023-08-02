@@ -125,9 +125,9 @@ export default class View {
     dialogs.forEach((dialog) => dialog.close());
   }
 
-  static resetFormFields() {
-    const fields = document.querySelectorAll('.form__input');
-    fields.forEach((field) => (field.value = ''));
+  static resetForms() {
+    const forms = document.querySelectorAll('.form');
+    forms.forEach((form) => form.reset());
   }
 
   static registerEventHandlers() {
@@ -140,7 +140,7 @@ export default class View {
     addProjectButton.addEventListener('click', () => View.openDialog('js-add-project-dialog'));
     addProjectSubmit.addEventListener('click', () => View.addNewProject());
     closeButtons.forEach((button) => button.addEventListener('click', () => View.closeDialogs()));
-    dialogs.forEach((dialog) => dialog.addEventListener('close', () => View.resetFormFields()));
+    dialogs.forEach((dialog) => dialog.addEventListener('close', () => View.resetForms()));
     addTaskButton.addEventListener('click', () => View.openDialog('js-add-task-dialog'));
   }
 
