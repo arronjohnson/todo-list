@@ -57,6 +57,41 @@
 
   <dialog class="dialog" id="js-edit-task-dialog">
     <h2 class="dialog__heading">Edit Task</h2>
+    <form class="form" id="js-edit-task-form" method="dialog">
+      <p class="form__field">
+        <label class="form__label" for="edit-task-title">Title:</label>
+        <input class="form__input" type="text" name="edit-task-title" id="edit-task-title" required>
+      </p>
+      <p class="form__field">
+        <label class="form__label" for="edit-task-desc">Description:</label>
+        <textarea class="form__textarea" name="edit-task-desc" id="edit-task-desc"
+          rows="4"></textarea>
+      </p>
+      <p class="form__field">
+        <label class="form__label" for="edit-task-due">Due date:</label>
+        <input class="form__input" type="date" name="edit-task-due" id="edit-task-due" required>
+      </p>
+      <p class="form__field">
+        <label class="form__label" for="edit-task-priority">Priority:</label>
+        <select class="form__select" name="edit-task-priority" id="edit-task-priority">
+          <option value="1">High</option>
+          <option value="2">Normal</option>
+          <option value="3">Low</option>
+        </select>
+      </p>
+      <section class="form__buttons">
+        <button class="form__button button button--red js-cancel-button"
+          type="button">Cancel</button>
+        <button class="form__button button button--green" id="js-edit-task-submit"
+          type="submit">Save</button>
+      </section>
+      <input type="hidden" name="edit-task-id" id="edit-task-id">
+      <input type="hidden" name="edit-task-project-id" id="edit-task-project-id">
+    </form>
+  </dialog>
+
+  <dialog class="dialog" id="js-edit-task-dialog">
+    <h2 class="dialog__heading">Edit Task</h2>
     <form class="form" method="dialog">
       <section class="form__buttons">
         <button class="button button--red">Cancel</button>
