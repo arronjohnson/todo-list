@@ -31,6 +31,7 @@ export default class View {
       View.renderProjects();
     } else {
       Storage.setActiveProjectId(id);
+      View.hideSidebar();
       View.displayActiveProject();
     }
   }
@@ -195,6 +196,11 @@ export default class View {
     forms.forEach((form) => form.reset());
   }
 
+  static hideSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.remove('sidebar--expanded');
+  }
+
   static toggleSidebar() {
     const sidebar = document.querySelector('.sidebar');
     sidebar.classList.toggle('sidebar--expanded');
@@ -228,6 +234,7 @@ export default class View {
 
     TodoList.addProject(project);
     Storage.setActiveProjectId(project.getId());
+    View.hideSidebar();
     View.renderProjects();
     Storage.save();
   }
