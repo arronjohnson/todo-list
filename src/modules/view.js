@@ -15,8 +15,13 @@ export default class View {
     View.registerEventHandlers();
   }
 
+  // we don't want to let the user delete the 'all' and 'default' projects
   static checkIfProjectDeletable(id) {
     return Number(id) !== View.ALL_PROJECT_ID && id !== Storage.getDefaultProjectId();
+  }
+
+  static checkIfViewingAll(id = Storage.getActiveProjectId()) {
+    return Number(id) === View.ALL_PROJECT_ID;
   }
 
   static handleProjectButtonClick(event, id) {
@@ -60,9 +65,11 @@ export default class View {
   }
 
   static setProjectText(projectId) {
-    const projectName =
-      Number(projectId) === View.ALL_PROJECT_ID ? 'All' : TodoList.getProjectById(projectId).name;
     const heading = document.getElementById('js-project-heading');
+    const projectName = View.checkIfViewingAll(projectId)
+      ? 'All'
+      : TodoList.getProjectById(projectId).name;
+
     heading.innerText = `Viewing ${projectName}`;
   }
 
@@ -82,7 +89,8 @@ export default class View {
     View.resetElement('js-projects-container');
 
     const container = document.getElementById('js-projects-container');
-    const allButton = View.createProjectButton('All', 0);
+    // 'all' is essentially a fake project, for the purposes of displaying all tasks
+    const allButton = View.createProjectButton('All', View.ALL_PROJECT_ID);
     container.appendChild(allButton);
 
     const projects = TodoList.getProjects();
@@ -114,7 +122,7 @@ export default class View {
     const projectName = document.createElement('p');
     projectName.className = 'task-card__project-name task-card__project-name--hidden';
     // we don't need to display the project name if we're not in the 'All' view
-    if (Number(Storage.getActiveProjectId()) === View.ALL_PROJECT_ID) {
+    if (View.checkIfViewingAll()) {
       projectName.classList.toggle('task-card__project-name--hidden');
       projectName.textContent = TodoList.getProjectById(task.getProjectId()).name;
     }
@@ -157,7 +165,7 @@ export default class View {
 
     const activeProjectId = Storage.getActiveProjectId();
     let tasks;
-    if (Number(activeProjectId) === View.ALL_PROJECT_ID) {
+    if (View.checkIfViewingAll(activeProjectId)) {
       tasks = TodoList.getAllTasksSorted();
     } else {
       tasks = TodoList.getProjectById(activeProjectId).getSortedTasks();
@@ -248,7 +256,7 @@ export default class View {
     // special handling for the 'All' pseudo-project
     // new tasks should be added to the Default project instead
     let activeProject = TodoList.getActiveProject();
-    if (Number(Storage.getActiveProjectId()) === View.ALL_PROJECT_ID) {
+    if (View.checkIfViewingAll()) {
       activeProject = TodoList.getDefaultProject();
     }
 
@@ -280,6 +288,7 @@ export default class View {
     const taskId = View.getElementValue('edit-task-id');
     const task = TodoList.getProjectById(projectId).getTaskById(taskId);
     task.setValues(title, desc, dueDate, priority);
+
     View.renderTasks();
     Storage.save();
   }
