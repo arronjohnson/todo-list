@@ -9,7 +9,8 @@
     "prod": "webpack --mode=production",
     "watch": "webpack --watch",
     "serve": "webpack serve --open",
-    "gh-page": "git subtree push --prefix dist origin gh-pages"
+    "gh-page": "git subtree push --prefix dist origin gh-pages",
+    "diff": "git diff -- ':!dist'"
   },
   "repository": {
     "type": "git",
