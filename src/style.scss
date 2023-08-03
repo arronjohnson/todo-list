@@ -188,9 +188,11 @@ a {
       padding: 4px 8px;
     }
 
-    &:hover &-icon {
+    &:hover &-icon,
+    &--active &-icon {
       visibility: visible;
     }
+
     @include button-highlight($sidebar-color);
   }
 
