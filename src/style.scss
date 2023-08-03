@@ -163,6 +163,10 @@ a {
     margin: 0;
   }
 
+  &__icon {
+    margin-right: 8px;
+  }
+
   &__projects-container {
     @include flex-vertical;
   }
@@ -171,7 +175,7 @@ a {
     align-items: center;
     background-color: inherit;
     display: flex;
-    justify-content: space-between;
+    gap: 8px;
     padding: 12px 16px;
     margin: 1px 16px;
     text-align: left;
@@ -198,6 +202,7 @@ a {
 
   &__button-icon {
     font-size: 1.1rem;
+    margin-left: auto;
     visibility: hidden;
   }
 }
