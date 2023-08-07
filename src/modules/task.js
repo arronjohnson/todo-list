@@ -24,10 +24,7 @@ export default class Task {
   }
 
   set desc(newDesc) {
-    if (newDesc === '') {
-      newDesc = Task.DEFAULT_DESCRIPTION;
-    }
-    this._desc = newDesc;
+    this._desc = newDesc === '' ? Task.DEFAULT_DESCRIPTION : newDesc;
   }
 
   get dueDate() {

@@ -1,7 +1,7 @@
-import Project from './project.js';
-import Task from './task.js';
-import TodoList from './todo-list.js';
-import View from './view.js';
+import Project from './project';
+import Task from './task';
+import TodoList from './todo-list';
+import View from './view';
 
 export default class Storage {
   static KEY_NAMES = ['projects', 'tasks', 'activeProjectId', 'defaultProjectId'];
@@ -24,12 +24,7 @@ export default class Storage {
   }
 
   static checkStorageProperties() {
-    for (const key of Storage.KEY_NAMES) {
-      if (!localStorage.hasOwnProperty(key)) {
-        return false;
-      }
-    }
-    return true;
+    return Storage.KEY_NAMES.every((key) => localStorage.get(key) !== null);
   }
 
   static load() {

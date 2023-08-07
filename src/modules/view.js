@@ -1,8 +1,8 @@
 import { intlFormatDistance as getRemainingTime, format as dateToString } from 'date-fns';
-import Project from './project.js';
-import Storage from './storage.js';
-import Task from './task.js';
-import TodoList from './todo-list.js';
+import Project from './project';
+import Storage from './storage';
+import Task from './task';
+import TodoList from './todo-list';
 
 export default class View {
   static currentDate = new Date();
@@ -95,7 +95,7 @@ export default class View {
 
     const projects = TodoList.getProjects();
     projects.forEach((project) =>
-      container.appendChild(View.createProjectButton(project.name, project.getId()))
+      container.appendChild(View.createProjectButton(project.name, project.getId())),
     );
 
     View.displayActiveProject();

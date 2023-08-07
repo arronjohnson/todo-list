@@ -1,5 +1,5 @@
 import generateId from 'uniqid';
-import sortTaskArray from './sort.js';
+import sortTaskArray from './sort';
 
 export default class Project {
   #id;

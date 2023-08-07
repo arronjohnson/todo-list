@@ -1,5 +1,5 @@
-import sortTaskArray from './sort.js';
-import Storage from './storage.js';
+import sortTaskArray from './sort';
+import Storage from './storage';
 
 class TodoList {
   // map isn't used as project quantity is likely minimal, so reduced lookup time is negligible
