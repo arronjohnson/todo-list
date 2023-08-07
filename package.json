@@ -9,7 +9,7 @@
     "prod": "webpack --mode=production",
     "watch": "webpack --watch",
     "serve": "webpack serve --open",
-    "gh-page": "git subtree push --prefix dist origin gh-pages",
+    "gh-pages": "git subtree push --prefix dist origin gh-pages",
     "diff": "git diff -- ':!dist'"
   },
   "repository": {
@@ -25,8 +25,14 @@
   "devDependencies": {
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
+    "eslint": "^8.46.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-import": "^2.28.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "html-webpack-plugin": "^5.5.3",
     "mini-css-extract-plugin": "^2.7.6",
+    "prettier": "^3.0.1",
     "sass": "^1.64.1",
     "sass-loader": "^13.3.2",
     "webpack": "^5.88.2",
