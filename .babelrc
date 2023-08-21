@@ -1,0 +1,4 @@
+{
+  "presets": [["@babel/preset-env", { "debug": true }]],
+  "targets": "> 0.25%"
+}
