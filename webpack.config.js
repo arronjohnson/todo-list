@@ -16,6 +16,16 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.(?:js|mjs|cjs)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [['@babel/preset-env', { debug: true, targets: '> 0.25%' }]],
+          },
+        },
+      },
+      {
         test: /.s?css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
