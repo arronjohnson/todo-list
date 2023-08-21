@@ -24,7 +24,7 @@ export default class Storage {
   }
 
   static checkStorageProperties() {
-    return Storage.KEY_NAMES.every((key) => localStorage.get(key) !== null);
+    return Storage.KEY_NAMES.every((key) => localStorage.getItem(key) !== null);
   }
 
   static load() {
