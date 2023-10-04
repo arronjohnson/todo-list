@@ -46,7 +46,14 @@ export default class View {
 
     const deleteIcon = document.createElement('i');
     deleteIcon.className = 'sidebar__button-icon fa-solid fa-xmark';
+    deleteIcon.setAttribute('aria-hidden', true);
+
+    const deleteSpan = document.createElement('span');
+    deleteSpan.className = 'fa-sr-only';
+    deleteSpan.textContent = 'Delete project';
+
     button.appendChild(deleteIcon);
+    button.appendChild(deleteSpan);
   }
 
   static createProjectButton(name, id) {
@@ -103,53 +110,53 @@ export default class View {
 
   static createTaskCard(task) {
     const article = document.createElement('article');
+    const h3 = document.createElement('h3');
+    const due = document.createElement('p');
+    const textContainer = document.createElement('section');
+    const projectName = document.createElement('p');
+    const desc = document.createElement('p');
+    const buttonsContainer = document.createElement('section');
+    const deleteButton = document.createElement('button');
+    const editButton = document.createElement('button');
+
     article.className = 'task-card';
     article.dataset.id = task.getId();
     article.dataset.priority = task.priority;
     article.dataset.projectId = task.getProjectId();
-
-    const h3 = document.createElement('h3');
     h3.className = 'task-card__heading';
     h3.textContent = task.title;
-
-    const due = document.createElement('p');
     due.className = 'task-card__due-date';
     due.textContent = `Due ${getRemainingTime(task.dueDate, View.currentDate, { unit: 'day' })}`;
 
-    const textContainer = document.createElement('section');
     textContainer.className = 'task-card__text-container';
-
-    const projectName = document.createElement('p');
     projectName.className = 'task-card__project-name task-card__project-name--hidden';
+    desc.className = 'task-card__desc';
+    desc.textContent = task.desc;
+
     // we don't need to display the project name if we're not in the 'All' view
     if (View.checkIfViewingAll()) {
       projectName.classList.toggle('task-card__project-name--hidden');
       projectName.textContent = TodoList.getProjectById(task.getProjectId()).name;
     }
 
-    const desc = document.createElement('p');
-    desc.className = 'task-card__desc';
-    desc.textContent = task.desc;
-
-    textContainer.appendChild(projectName);
-    textContainer.appendChild(desc);
-
-    const buttonsContainer = document.createElement('section');
     buttonsContainer.className = 'task-card__buttons-container';
-
-    const deleteButton = document.createElement('button');
     deleteButton.className = 'task-card__button button button--red';
-    deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+    deleteButton.innerHTML = `
+      <i class="fa-solid fa-trash" aria-hidden="true"></i>
+      <span class="fa-sr-only">Delete task</span>`;
+    editButton.className = 'task-card__button button button--blue';
+    editButton.innerHTML = `
+      <i class="fa-solid fa-pencil" aria-hidden="true"></i>
+      <span class="fa-sr-only">Edit task</span>`;
+
     deleteButton.addEventListener('click', () => {
       TodoList.getProjectById(article.dataset.projectId).removeTaskById(article.dataset.id);
       View.renderTasks();
     });
-
-    const editButton = document.createElement('button');
-    editButton.className = 'task-card__button button button--blue';
-    editButton.innerHTML = '<i class="fa-solid fa-pencil"></i>';
     editButton.addEventListener('click', () => View.editTask(article));
 
+    textContainer.appendChild(projectName);
+    textContainer.appendChild(desc);
     buttonsContainer.appendChild(deleteButton);
     buttonsContainer.appendChild(editButton);
 
@@ -286,6 +293,7 @@ export default class View {
     const priority = View.getElementValue('edit-task-priority');
     const projectId = View.getElementValue('edit-task-project-id');
     const taskId = View.getElementValue('edit-task-id');
+
     const task = TodoList.getProjectById(projectId).getTaskById(taskId);
     task.setValues(title, desc, dueDate, priority);
 

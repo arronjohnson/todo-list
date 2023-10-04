@@ -54,7 +54,7 @@ a {
   padding: 12px 24px;
   transition: 0.2s transform ease-in-out;
 
-  $green-button-color: #28a745;
+  $green-button-color: #218739;
   &--green {
     background-color: $green-button-color;
     color: white;
@@ -68,10 +68,11 @@ a {
     @include button-highlight($red-button-color);
   }
 
+  $blue-button-color: #096efb;
   &--blue {
-    background-color: $accent-color;
+    background-color: $blue-button-color;
     color: white;
-    @include button-highlight($accent-color);
+    @include button-highlight($blue-button-color);
   }
 
   &--hidden {
@@ -264,7 +265,7 @@ a {
   }
 
   &__desc {
-    color: #909090;
+    color: #757575;
     font-size: 0.9rem;
   }
 
@@ -302,6 +303,12 @@ a {
 .footer {
   margin: auto 16px 0 0;
   text-align: right;
+
+  &__icons-container {
+    display: flex;
+    gap: 8px;
+    justify-content: end;
+  }
 
   &__icon-link {
     font-size: 2rem;

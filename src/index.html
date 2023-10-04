@@ -107,8 +107,10 @@
       <h1 class="sidebar__heading">
         <i class="sidebar__icon fa-solid fa-rectangle-list" aria-hidden="true"></i> Todo List
       </h1>
-      <button class="sidebar__button button sidebar__button--close" id="js-sidebar-close-button">
+      <button class="sidebar__button button sidebar__button--close" id="js-sidebar-close-button"
+        aria-hidden="true">
         <i class="fa-solid fa-xmark"></i>
+        <span class="fa-sr-only">Close menu</span>
       </button>
     </section>
     <section class="sidebar__projects-container" id="js-projects-container"></section>
@@ -125,24 +127,28 @@
   </main>
 
   <footer class="footer">
-    <div class="footer__icons-container">
-      <a class="footer__icon-link" href="https://github.com/arronjohnson" target="_blank"
+    <section class="footer__icons-container" aria-label="Arron Johnson's links">
+      <a href="https://github.com/arronjohnson" class="footer__icon-link" target="_blank"
         rel="noopener noreferrer">
-        <i class="fa-brands fa-github"></i>
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+        <span class="fa-sr-only">GitHub profile (opens in new tab)</span>
       </a>
-      <a class="footer__icon-link" href="https://www.linkedin.com/in/arronjohnson-uk/"
+      <a href="https://www.linkedin.com/in/arronjohnson-uk/" class="footer__icon-link"
         target="_blank" rel="noopener noreferrer">
-        <i class="fa-brands fa-linkedin"></i>
+        <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+        <span class="fa-sr-only">LinkedIn profile (opens in new tab)</span>
       </a>
-      <a class="footer__icon-link" href="http://arronjohnson.me/" target="_blank"
+      <a href="http://arronjohnson.me/" class="footer__icon-link" target="_blank"
         rel="noopener noreferrer">
-        <i class="fa-solid fa-earth-europe"></i>
+        <i class="fa-solid fa-earth-europe" aria-hidden="true"></i>
+        <span class="fa-sr-only">Personal website (opens in new tab)</span>
       </a>
-      <a class="footer__icon-link" href="http://arronjohnson.me/" target="_blank"
+      <a href="http://arronjohnson.me/" class="footer__icon-link" target="_blank"
         rel="noopener noreferrer">
-        <i class="fa-solid fa-envelope"></i>
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        <span class="fa-sr-only">Email address</span>
       </a>
-    </div>
+    </section>
     <p class="footer__copyright">Copyright © Arron Johnson 2023</p>
   </footer>
 </body>
